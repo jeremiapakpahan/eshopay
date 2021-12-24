@@ -1,0 +1,192 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Eshopay",
+        "description": "",
+        "version": "1.0"
+    },
+    "host": "localhost:3001",
+    "basePath": "/eshopay/api",
+    "tags": [
+        {
+            "name": "eshopay",
+            "description": "Eshopay API",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/category/": {
+            "post": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "Add a new category",
+                "description": "",
+                "operationId": "addCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Category object create to db",
+                        "required": true
+                        
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "Finds Category",
+                "description": "Display all category",
+                "operationId": "Find all category",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/category/{id}": {
+            "put": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "Update an existing category",
+                "description": "",
+                "operationId": "updateCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Update Category ",
+                        "required": true,
+                        "type": "string"
+                      },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Category object create to db",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Category"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Region not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "find an existing category",
+                "description": "",
+                "operationId": "updateCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Find Category ",
+                        "required": true,
+                        "type": "integer"
+                      }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid Category id"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "delete an existing category",
+                "description": "",
+                "operationId": "updateCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Delete Category ",
+                        "required": true,
+                        "type": "integer"
+                      }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Region not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        } 
+    }
+}
