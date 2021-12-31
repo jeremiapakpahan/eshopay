@@ -21,7 +21,7 @@ const create = async (req,res,next) => {
     try {
         const result = await req.context.models.carts.create({
             cart_createdon : new Date(),
-            cart_status : req.body.status,
+            cart_status : "OPEN",
             cart_user_id : req.body.id
         })
         req.cart = result.dataValues.cart_id
@@ -79,10 +79,39 @@ const deleteRow = async(req,res) =>{
     }
 }
 
+const summaryCart = async (req,res,next)=>{
+    const {cart_id} = req.body;
+
+    try {
+        const result = await req.context.models.line_items.findAll({
+            where : {lite_cart_id : cart_id}
+        });
+
+        const lineItems = result;
+        const totQty = lineItems.reduce((total,el)=> total+el.lite_qty,0)
+        //const subTotal = lineItems.reduce((total,el)=> total+ parseFloat(el.lite_subtotal),0)
+        const subTot = lineItems.reduce((sum,el)=>sum + parseFloat(el.lite_total_price),0)
+
+        req.summaryCart=({
+            summary : {
+                totQty : totQty,
+                subTot : subTot 
+            }
+        });
+
+        req.lineItems = result
+        next();
+
+    } catch (error) {
+        res.status(404).json({message : error.message})
+    }
+}
+
 export default {
     create,
     findAll,
     findOne,
     update,
-    deleteRow
+    deleteRow,
+    summaryCart
 }
